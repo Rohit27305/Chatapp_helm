@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Values.frontend.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: {{ .Values.frontend.name }}
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ .Values.frontend.name }}
     spec:
       containers:
-        - name: frontend
+        - name: {{ .Values.frontend.name }}
           image: {{ .Values.frontend.image }}
           ports:
             - containerPort: {{ .Values.frontend.containerPort }}
@@ -24,11 +24,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: {{ .Values.frontend.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: frontend
+    app: {{ .Values.frontend.name }}
   type: {{ .Values.service.type }}
   ports:
     - protocol: TCP

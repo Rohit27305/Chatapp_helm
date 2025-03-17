@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.backend.image }}
+          ports:
+            - containerPort: {{ .Values.backend.containerPort }}
+          env:
+            - name: MONGO_URL
+              value: "mongodb://{{ .Values.mongodb.serviceName }}:{{ .Values.mongodb.containerPort }}/chat"
+            - name: PORT
+              value: "{{ .Values.backend.containerPort }}"
+
+---
+
+# Backend Service 
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: backend
+  type: {{ .Values.service.type }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.containerPort }}
+      targetPort: {{ .Values.backend.containerPort }}
+      nodePort: {{ .Values.backend.nodePort }}

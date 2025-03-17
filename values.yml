@@ -1,0 +1,33 @@
+namespace: chatapp
+
+mongodb:
+  name: mongodb
+  image: mongo:latest
+  containerPort: 27017
+  serviceName: mongodb-svc
+  storageSize: 1Gi
+  storageClass: standard
+  nodePort: 32017  
+
+frontend:
+  name: frontend
+  image: rohit273/chatapp-frontend:latest
+  containerPort: 3000
+  nodePort: 32001 
+
+backend:
+  name: backend
+  image: rohit273/chatapp-backend:latest
+  containerPort: 5000
+  nodePort: 32002
+
+service: 
+  type: NodePort
+
+Ingress:
+  enabled: true
+  host: localhost
+  nginxIngressController:
+    enabled: true
+    class: nginx
+

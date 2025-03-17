@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: 144.126.255.2
+    - host: 1"*"
       http:
         paths:
           - path: /

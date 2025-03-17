@@ -20,7 +20,7 @@ spec:
             - containerPort: {{ .Values.backend.containerPort }}
           env:
             - name: MONGO_URL
-              value: "mongodb://{{ .Values.mongodb.serviceName }}:{{ .Values.mongodb.containerPort }}/chat"
+              value: "mongodb://{{ .Values.mongodb.name }}:{{ .Values.mongodb.containerPort }}/chat"
             - name: PORT
               value: "{{ .Values.backend.containerPort }}"
 

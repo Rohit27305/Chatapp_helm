@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{ .Values.Ingress.host | default "localhost" }} 
+    - host: 144.126.255.2
       http:
         paths:
           - path: /

@@ -36,20 +36,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb
+  name: {{ .Values.mongodb.name }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb
+      app: {{ .Values.mongodb.name }}
   template:
     metadata:
       labels:
-        app: mongodb
+        app: {{ .Values.mongodb.name }}
     spec:
       containers:
-        - name: mongodb
+        - name: {{ .Values.mongodb.name }}
           image: {{ .Values.mongodb.image }}
           ports:
             - containerPort: {{ .Values.mongodb.containerPort }}
@@ -67,14 +67,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.mongodb.serviceName }}
+  name: {{ .Values.mongodb.name }}
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: mongodb
+    app: {{ .Values.mongodb.name }}
   type: {{ .Values.service.type }}
   ports:
     - protocol: TCP
       port: {{ .Values.mongodb.containerPort }}
       targetPort: {{ .Values.mongodb.containerPort }}
-      nodePort: {{ .Values.mongodb.nodePort }}

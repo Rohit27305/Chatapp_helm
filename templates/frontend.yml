@@ -18,6 +18,9 @@ spec:
           image: {{ .Values.frontend.image }}
           ports:
             - containerPort: {{ .Values.frontend.containerPort }}
+          env:
+            - name: REACT_APP_API_URL 
+              value: "http://144.126.255.2/api"
 
 ---
 
